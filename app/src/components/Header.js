@@ -4,8 +4,10 @@ import { useFetchPostStatuses } from "../lib/hooks";
 import { wp } from "../lib/utils";
 import { ReactComponent as Logo } from '../svg/calendariologo.svg';
 
+import ViewContext from "../ViewContext";
+
 export default function Header({ handleTodayClick }) {
-	useFetchPostStatuses();
+	useFetchPostStatuses(ViewContext);
 
 	const { postsUrl } = wp;
 

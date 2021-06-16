@@ -19,7 +19,7 @@ export default function List({ className }) {
 		},
 	} = useContext(ViewContext);
 
-	useFetchScheduledPosts(start, end);
+	useFetchScheduledPosts(PostsContext, start, end);
 
 	const renderDays = () => {
 		let days = [];

@@ -11,7 +11,7 @@ export default function UnscheduledDrafts() {
 		posts: { unscheduled },
 	} = useContext(PostsContext);
 
-	useFetchUnscheduledPosts();
+	useFetchUnscheduledPosts(PostsContext);
 
 	return (
 		<>

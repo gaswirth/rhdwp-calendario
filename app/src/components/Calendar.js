@@ -22,7 +22,7 @@ export default function Calendar({ className, todayRef }) {
 		viewOptions: { viewRange },
 	} = useContext(ViewContext);
 
-	useFetchScheduledPosts(viewRange.start, viewRange.end);
+	useFetchScheduledPosts(PostsContext, viewRange.start, viewRange.end);
 
 	const renderDaysHeaderRow = useCallback(() => {
 		const days = [];

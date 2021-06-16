@@ -4,9 +4,6 @@ import { format } from "date-fns";
 import { isEmpty } from "lodash";
 import { sanitizeParamsForUpdate } from "../lib/utils";
 
-import PostsContext from "../PostsContext";
-import ViewContext from "../ViewContext";
-
 const { routeBase, nonce } = wp;
 const headers = { "X-WP-Nonce": nonce, "Content-Type": "application/json" };
 
@@ -32,12 +29,12 @@ export const useStickyState = (defaultValue, key) => {
 
 /**
  * Retrieves 'scheduled' posts from the server
+ * @param {context} PostsContext
  * @param {Date} start The range's start
  * @param {Date} end The range's end
  * @returns {boolean} The current loading state
  */
-// TODO pass in context
-export const useFetchScheduledPosts = (start, end) => {
+export const useFetchScheduledPosts = (PostsContext, start, end) => {
 	const {
 		posts: { refetch },
 		postsDispatch,
@@ -87,10 +84,10 @@ export const useFetchScheduledPosts = (start, end) => {
 /**
  * Retrieves 'unscheduled' posts from the server
  *
+ * @param {context} PostsContext
  * @returns {boolean} The current loading state
  */
-// TODO pass in context
-export const useFetchUnscheduledPosts = () => {
+export const useFetchUnscheduledPosts = (PostsContext) => {
 	const {
 		posts: { refetch },
 		postsDispatch,
@@ -134,10 +131,10 @@ export const useFetchUnscheduledPosts = () => {
 /**
  * Retrieves the set of post statuses from the server
  *
+ * @param {context} ViewContext
  * @returns {boolean} The current loading state
  */
-// TODO pass in context
-export const useFetchPostStatuses = () => {
+export const useFetchPostStatuses = (ViewContext) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { viewOptionsDispatch } = useContext(ViewContext);
 
@@ -178,11 +175,11 @@ export const useFetchPostStatuses = () => {
 /**
  * Retrieves all terms of a taxonomy
  *
+ * @param {context} PostsContext
  * @param {string} name The taxonomy name (slug) to fetch
  * @returns {boolean} The current loading state
  */
-// TODO pass in context
-export const useFetchTaxonomyTerms = (name) => {
+export const useFetchTaxonomyTerms = (PostsContext, name) => {
 	const {
 		posts: { taxonomies },
 		postsDispatch,

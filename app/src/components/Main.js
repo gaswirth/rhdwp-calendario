@@ -5,14 +5,15 @@ import EditPost from "./EditPost";
 import { useFetchTaxonomyTerms } from "../lib/hooks";
 
 import ViewContext from "../ViewContext";
+import PostsContext from "../PostsContext";
 
 const Main = forwardRef(({ todayRef }, ref) => {
 	const {
 		viewOptions: { viewMode },
 	} = useContext(ViewContext);
 
-	useFetchTaxonomyTerms("category");
-	useFetchTaxonomyTerms("post_tag");
+	useFetchTaxonomyTerms(PostsContext, "category");
+	useFetchTaxonomyTerms(PostsContext, "post_tag");
 
 	return (
 		<main className="calendario__main">

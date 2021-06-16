@@ -73,7 +73,7 @@ export default function App() {
 	/**
 	 * Send the upaate
 	 */
-	useUpdate(posts, postsDispatch, draggedPost, draggedPostDispatch, user);
+	useUpdate(PostsContext, DragContext, user);
 
 	const isOverUnscheduled = (droppableId) =>
 		droppableId === "unscheduled" ? true : false;
