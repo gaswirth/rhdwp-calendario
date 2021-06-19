@@ -33,17 +33,20 @@ body {
 	position: relative;
 }
 
+#wpcontent {
+	.auto-fold & {
+		padding-left: 0;
+	}
+}
+
 #calendario {
-	position: fixed;
-	top: 32px; // admin bar
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	margin: 0 0;
+	width: 100%;
+	min-height: 100%;
+	margin: 0;
+	padding-top: 23px; // admin bar difference
 	overflow: auto;
 	z-index: 99999;
 	background: white;
-	min-height: 100%;
 	font-size: 16px;
 }
 
@@ -86,7 +89,7 @@ body {
 	}
 }
 
-.calendario {
+.calendarioMain {
 	display: grid;
 	grid-gap: var(--gridGap);
 	height: 100vh;
@@ -110,14 +113,14 @@ body {
 		grid-template-rows: min-content auto;
 		grid-template-areas:
 			"header header"
-			"sidebar   main";
+			"main   sidebar";
 
 		&.sidebarOpen {
-			grid-template-columns: 300px 3fr;
+			grid-template-columns: 3fr 300px;
 		}
 
 		&.sidebarClosed {
-			grid-template-columns: 14px 3fr;
+			grid-template-columns: 3fr 16px;
 		}
 	}
 
@@ -169,8 +172,8 @@ body {
 			@media (min-width: $mobileBreak) {
 				display: grid;
 				grid-gap: var(--gridGap);
-				grid-template-columns: 300px 3fr;
-				grid-template-areas: "title calendarHeader";
+				grid-template-columns: 3fr 300px;
+				grid-template-areas: "calendarHeader title";
 			}
 
 			& > div {
@@ -273,7 +276,7 @@ body {
 				position: absolute;
 				top: 28px;
 				font-size: 0.8em;
-				right: 0;
+				left: 4px;
 				z-index: 1;
 				line-height: 2;
 				padding: 0;
@@ -305,10 +308,6 @@ body {
 	&__main {
 		grid-area: main;
 		width: 100%;
-
-		@media (min-width: $mobileBreak) {
-			padding-right: 1em;
-		}
 	}
 
 	.react-datepicker-popper {
@@ -417,8 +416,6 @@ body {
 	width: 100%;
 
 	.viewRange {
-		margin-right: 64px; // offset todayButton
-
 		&__input {
 			background-color: transparent;
 			border-bottom: 2px dotted var(--textColor-light);
@@ -443,7 +440,7 @@ body {
 	.todayButton {
 		font-size: 0.9em;
 		width: 60px;
-		margin-right: 4px;
+		margin-right: 12px;
 
 		&:not([disabled]) {
 			border: 1px solid var(--textColor-light);
@@ -768,7 +765,7 @@ body {
 			.rhdLogo {
 				flex: 0 1 40%;
 				height: 100%;
-				margin: 0;
+				margin: 0 8px 0 0;
 
 				img {
 					width: 100%;

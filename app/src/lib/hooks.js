@@ -1,11 +1,14 @@
-import { useState, useEffect, useContext /* useRef */ } from "react";
+import { useState, useEffect } from "react";
 import { wp, dateFormat } from "../lib/utils";
 import { format } from "date-fns";
 import { isEmpty } from "lodash";
 import { sanitizeParamsForUpdate } from "../lib/utils";
 
 const { routeBase, nonce } = wp;
-const headers = { "X-WP-Nonce": nonce, "Content-Type": "application/json" };
+const headers = {
+	"Content-Type": "application/json",
+	"X-WP-Nonce": nonce,
+};
 
 /**
  * Uses localStorage to save view-specific user options.
@@ -32,13 +35,12 @@ export const useStickyState = (defaultValue, key) => {
  * @param {context} PostsContext
  * @param {Date} start The range's start
  * @param {Date} end The range's end
+ * @param {Object} posts PostsContext store
+ * @param {Function} postsDispatch PostsContext reducer
  * @returns {boolean} The current loading state
  */
-export const useFetchScheduledPosts = (PostsContext, start, end) => {
-	const {
-		posts: { refetch },
-		postsDispatch,
-	} = useContext(PostsContext);
+export const useFetchScheduledPosts = (start, end, posts, postsDispatch) => {
+	const { refetch } = posts;
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -84,14 +86,12 @@ export const useFetchScheduledPosts = (PostsContext, start, end) => {
 /**
  * Retrieves 'unscheduled' posts from the server
  *
- * @param {context} PostsContext
+ * @param {Object} posts PostsContext store
+ * @param {Function} postsDispatch PostsContext reducer
  * @returns {boolean} The current loading state
  */
-export const useFetchUnscheduledPosts = (PostsContext) => {
-	const {
-		posts: { refetch },
-		postsDispatch,
-	} = useContext(PostsContext);
+export const useFetchUnscheduledPosts = (posts, postsDispatch) => {
+	const { refetch } = posts;
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -131,12 +131,11 @@ export const useFetchUnscheduledPosts = (PostsContext) => {
 /**
  * Retrieves the set of post statuses from the server
  *
- * @param {context} ViewContext
+ * @param {Function} viewOptionsDispatch ViewContext reducer
  * @returns {boolean} The current loading state
  */
-export const useFetchPostStatuses = (ViewContext) => {
+export const useFetchPostStatuses = (viewOptionsDispatch) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { viewOptionsDispatch } = useContext(ViewContext);
 
 	useEffect(() => {
 		let url = `${routeBase}/statuses`;
@@ -177,13 +176,12 @@ export const useFetchPostStatuses = (ViewContext) => {
  *
  * @param {context} PostsContext
  * @param {string} name The taxonomy name (slug) to fetch
+ * @param {Object} posts PostsContext store
+ * @param {Function} postsDispatch PostsContext reducer
  * @returns {boolean} The current loading state
  */
-export const useFetchTaxonomyTerms = (PostsContext, name) => {
-	const {
-		posts: { taxonomies },
-		postsDispatch,
-	} = useContext(PostsContext);
+export const useFetchTaxonomyTerms = (name, posts, postsDispatch) => {
+	const { taxonomies } = posts;
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
@@ -227,10 +225,10 @@ export const useFetchTaxonomyTerms = (PostsContext, name) => {
 
 /**
  *
- * @param {Object} posts PostsContext
- * @param {Function} postsDispatch PostsContext
- * @param {Object} draggedPost DragContext
- * @param {Function} draggedPostDispatch DragContext
+ * @param {Object} posts PostsContext store
+ * @param {Function} postsDispatch PostsContext reducer
+ * @param {Object} draggedPost DragContext store
+ * @param {Function} draggedPostDispatch DragContext reducer
  * @param {number} user User ID
  * @returns {void}
  */
