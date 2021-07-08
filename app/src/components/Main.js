@@ -4,7 +4,6 @@ import List from "./List";
 import EditPost from "./EditPost";
 import { useFetchTaxonomyTerms } from "../lib/hooks";
 
-import PostsContext from "../PostsContext";
 import ViewContext from "../ViewContext";
 import PostsContext from "../PostsContext";
 

@@ -2,8 +2,6 @@ import React from "react";
 import MainHeader from "./MainHeader";
 import { ReactComponent as Logo } from '../svg/calendariologo.svg';
 
-import ViewContext from "../ViewContext";
-
 export default function Header({ handleTodayClick }) {
 	return (
 		<header className="calendarioMain__header">
